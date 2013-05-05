@@ -71,9 +71,8 @@ def printschedule(r):
 
 def schedulecost(sol):
     """Compute the total cost of the trip and the total time spent waiting at 
-    the airports for various passengers. sol is a list of randomly generated 
-    (depends on the type of methods used) details of each trip.
-    e.g. sol = [[LGA,OMA,6:19,8:13,239], [...], ...]"""
+    the airports for various passengers. sol is a list of trip specified
+    (outbound, return). e.g. sol = [1,4,3,2,7,3,6,3,2,4,5,3]"""
     
     totalprice = 0
     latestarrival = 0

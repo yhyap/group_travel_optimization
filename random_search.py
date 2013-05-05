@@ -33,7 +33,7 @@ domain = [(0,8)]*(len(gto.people)*2)    # [(0,8), (0,8), ..., ]
 
 # Optimizing
 s = randomoptimize(domain, gto.schedulecost)
-print s
+print s         # print the list
 
 # Pull the data and present
 gto.schedulecost(s)
