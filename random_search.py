@@ -8,7 +8,8 @@ import random
 def randomoptimize(domain,costf):
     """A random optimization method that returns a list of 2-tuple (outbound, return)
     trip that each passenger should take. The domain parameter (list of 2-tuple) 
-    specify the minimum and maximum values for each variable"""
+    specify the minimum and maximum values for each variable. The costf parameter
+    is the cost function obtained from schedulecost"""
     best = 999999999            # Set the initial cost to a high value
     bestr = None                # tracks the best random number generated
     for i in range(1000):
