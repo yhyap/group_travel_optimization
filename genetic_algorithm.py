@@ -1,5 +1,9 @@
 # Genetic algorithm
 
+import group_travel_optimization as gto
+import random
+
+
 def geneticoptimize(domain, costf, popsize=50, step=1, mutprod=0.2, elite=0.2, maxiter=100):
     """Create a set of initial random solution known as population. At each step
     of optimization, the cost function of the entire population is calculated to
@@ -10,8 +14,8 @@ def geneticoptimize(domain, costf, popsize=50, step=1, mutprod=0.2, elite=0.2, m
     
     # Mutation: small and random change to an existing solution
     def mutate(vec):
-        i = random.randint(0, len(domain)-1)
-        if random.random() < 0.5 and vec[i] > domain[i][0]:
+        i = random.randint(0, len(domain)-1)                # pick an index
+        if random.random() < 0.5 and vec[i] > domain[i][0]: 
             return vec[0:i] + [vec[i]-step] + vec[i+1:]
         elif vec[i] < domain[i][1]:
             return vec[0:i] + [vec[i]+step] + vec[i+1:]
@@ -42,7 +46,7 @@ def geneticoptimize(domain, costf, popsize=50, step=1, mutprod=0.2, elite=0.2, m
         
         # Add mutated and bred forms from the winners
         while len(pop) < popsize:
-            if random.random() < mutprob:
+            if random.random() < mutprod:
                 # Mutation
                 m = random.randint(0, topelite)
                 pop.append(mutate(ranked[m]))
@@ -56,4 +60,16 @@ def geneticoptimize(domain, costf, popsize=50, step=1, mutprod=0.2, elite=0.2, m
         print scores[0][0]
         
     return scores[0][1]
-        
+
+
+# There are nine outbound and inbound flights respectively for every person
+# so the domain in the list is set to (0,8) repeated twice for each person
+domain = [(0,8)]*(len(gto.people)*2)    # [(0,8), (0,8), ..., ]
+
+# Optimizing
+s = geneticoptimize(domain, gto.schedulecost)
+print s
+
+# Pull the data and present
+gto.schedulecost(s)
+gto.printschedule(s)
