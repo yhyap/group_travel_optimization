@@ -1,4 +1,5 @@
-/*group_travel_optimization
+group_travel_optimization
+=========================
 
 Planning a trip for a group of people (e.g. family members) from different locations all arriving at the same place through optimization. The family members are all over the country and wish to meet at New York. They will arrive on the same day and leave on the same day. They will share transportation from and to the airport. 
 
