@@ -71,12 +71,14 @@ def printschedule(r):
 
 def schedulecost(sol):
     """Compute the total cost of the trip and the total time spent waiting at 
-    the airports for various passengers. sol is a list of trip specified
-    (outbound, return). e.g. sol = [1,4,3,2,7,3,6,3,2,4,5,3]"""
+    the airports and total time spent in the air for various passengers. 
+    sol is a list of trip specified (outbound, return). 
+    e.g. sol = [1,4,3,2,7,3,6,3,2,4,5,3]"""
     
-    totalprice = 0
+    totalprice = 0          # price paid for tickets
+    totalair = 0            # cost for flying in the air
     latestarrival = 0
-    earliestdep = 24*60
+    earliestdep = 24*60     
     
     # Go through each pair of return flight and track the latest arrival and earliest dep given the passenger
     for d in range(len(sol)/2):
@@ -84,17 +86,21 @@ def schedulecost(sol):
         origin = people[d][1]                                   # Get the origin of passenger
         outbound = flights[(origin,destination)][int(sol[d])]   # i.e. [('8:04','10:11', 95)]
         returnf = flights[(destination,origin)][int(sol[d+1])]  # format same as above
+        outboundtime = getminutes(outbound[1]) - getminutes(outbound[0])
+        returnftime = getminutes(returnf[1]) - getminutes(returnf[0])
         
-        # Total price is the price of all outbound and return flights
+        # Total price is the price of combined outbound and return flights for all passengers
         totalprice += outbound[2]
         totalprice += returnf[2]
+        totalair += outboundtime
+        totalair += returnftime
         
         # Track the latest arrival and earliest departure
         if latestarrival < getminutes(outbound[1]):
-            latestarrival = getminutes(outbound[1])
+            latestarrival = getminutes(outbound[1])     # update the time of latest arrival
         if earliestdep > getminutes(returnf[0]):
-            earliestdep = getminutes(returnf[0])
-    
+            earliestdep = getminutes(returnf[0])        # update the time of earliest departure
+        # the latestarrival and earliestdep will be used to compute waiting time later
     
     # Every person must wait at the airport until the latest person arrives
     # They also must arrive at the same time to wait for their flight
@@ -103,7 +109,7 @@ def schedulecost(sol):
     # Go through each pair of return flight and track the least total waiting time
     for d in range(len(sol)/2):
         origin = people[d][1]
-        outbound = flights[(origin,destination)][int(sol[d])]
+        outbound = flights[(origin,destination)][int(sol[d])]   # i.e. [('8:04','10:11', 95)]
         returnf = flights[(destination,origin)][int(sol[d+1])]
         totalwait += latestarrival - getminutes(outbound[1])
         totalwait += getminutes(returnf[0]) - earliestdep
@@ -111,9 +117,13 @@ def schedulecost(sol):
     
     # Does this solution requires an extra day of car rental? That'll be $50
     if latestarrival > earliestdep:
-        totalprice += 50
+        totalprice += 50    
+
+    # Penalty if anyone gets to airport before 8 am
+    # can add here
     
-    return totalprice + totalwait # assuming each minute cost $1
+    return totalprice + totalwait + 0.5*totalair 
+    # assuming each minute waiting cost $1 and each minute in air cost $0.50
     
 
 

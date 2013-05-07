@@ -81,3 +81,14 @@ gto.printschedule(s)
 
 # In case the code yield error: This code is working
 # Just try several times and it will run
+
+
+# Expected answer
+# Total cost: 3533
+# sol = [4, 3, 3, 3, 4, 3, 3, 0, 0, 0, 0, 0]
+#   Seymour       BOS 12:34-15:02 $109 10:33-12:03 $ 74
+#    Franny       DAL 10:30-14:57 $290 10:51-14:16 $256
+#     Zooey       CAK 10:53-13:36 $189 10:32-13:16 $139
+#      Walt       MIA 11:28-14:40 $248 12:37-15:05 $170
+#     Buddy       ORD 12:44-14:17 $134 10:33-13:11 $132
+#       Les       OMA 11:08-13:07 $175 11:07-13:24 $171
