@@ -4,6 +4,8 @@ group_travel_optimization
 Planning a trip for a group of people (e.g. family members) from different locations all arriving at the same place through optimization. The family members are all over the country and wish to meet at New York. They will arrive on the same day and leave on the same day. They will share transportation from and to the airport. 
 
 
+Structure of program
+--------------------
 
 The python program can be divided into the following:
 
@@ -18,6 +20,9 @@ The python program can be divided into the following:
 	- genetic_algorithm
 
 These individual files will call group_travel_optimization.py and perform iterations to find the most optimum solution (i.e. with lowest overall cost, and least time spent)
+
+How to run
+----------
 
 You can run one of these files on the terminal, and it will generate the schedule for all the family members.
 
